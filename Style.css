@@ -125,6 +125,8 @@ button:nth-child(10) { grid-column: 3; } /* "6" */
 button:nth-child(11) { 
   grid-column: 4;
   grid-row: span 2;
+  margin-top: -70px; /* Buat geser ke atas atau kebawah ya */
+  height: 130px; /* Ngatur size sesuai kebutuhan */
 } /* "+" */
 button:nth-child(12) { grid-column: 1; } /* "1" */
 button:nth-child(13) { grid-column: 2; } /* "2" */
@@ -133,4 +135,6 @@ button:nth-child(15) { grid-column: 2; } /* "0" */
 button:nth-child(16) {
   grid-row: span 2;
   grid-column: 4;
+  margin-top: -70px; /* Buat geser ke atas atau kebawah ya */
+  height: 130px; /* Ngatur size sesuai kebutuhan */
 }  /* "=" */
