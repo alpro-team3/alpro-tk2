@@ -8,12 +8,20 @@ function clearResult() {
 
 function calculateResult() {
   const resultField = document.getElementById('result');
+  const resultValue = resultField.value.trim();
+
+  if (resultValue === '') {
+    resultField.value = 'ERROR ☹';
+    return;
+  }
+
   try {
-    resultField.value = eval(resultField.value);
+    resultField.value = eval(resultValue);
   } catch (error) {
-    resultField.value = 'Error';
+    resultField.value = 'ERROR ☹';
   }
 }
+
 
 function toggleTheme() {
   const body = document.body;
