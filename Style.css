@@ -120,11 +120,11 @@ button:hover {
 }
 
 body.kurumi-theme button:hover {
-  background-color: #0056b3;  
+  background-color: #ff004c;  
 }
 
 body.arona-theme button:hover {
-  background-color: #ff004c;  
+  background-color: #0056b3;  
 }
 
 
