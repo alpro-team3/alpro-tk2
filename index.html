@@ -212,14 +212,14 @@
       const resultValue = resultField.value.trim();
 
       if (resultValue === '') {
-        resultField.value = 'ERROR ☹';
+        resultField.value = 'ERROR';
         return;
       }
 
       try {
         resultField.value = eval(resultValue);
       } catch (error) {
-        resultField.value = 'ERROR ☹';
+        resultField.value = 'ERROR';
       }
     }
 
