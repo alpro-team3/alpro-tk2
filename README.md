@@ -1,5 +1,5 @@
-# alpro-tk1
-Project team-3 untuk tugas alpro ke-1
+# alpro-tk2
+Project team-3 untuk tugas alpro ke-2
 
 Nama        : Muhammad Radja Rivaldi <br/>
 Nim         : I.2410157 <br/>
