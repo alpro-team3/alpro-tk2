@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toggle Themed Calculator</title>
+    <style>
+        body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .background-video-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    #background-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .theme-toggle-container {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #theme-toggle {
+      width: 80px;
+      height: 80px;
+      background-image: url('https://i.imgur.com/wedWg0h.png');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    #theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    .theme-text {
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .calculator {
+      position: relative;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      width: 400px;
+    }
+
+    body.kurumi-theme .calculator {
+      background-color: rgba(65, 10, 10, 0.8);
+    }
+
+    body.arona-theme .calculator {
+      background-color: rgba(0, 120, 255, 0.8);
+    }
+
+    #result {
+      width: 100%;
+      height: 80px;
+      font-size: 36px;
+      text-align: right;
+      line-height: 80px;
+      margin-bottom: 20px;
+      border: 2px solid #000000;
+      border-radius: 5px;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+
+    body.kurumi-theme #result {
+      color: #ffd700; 
+    }
+
+    body.arona-theme #result {
+      color: #ffffff; 
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      height: 60px;
+      font-size: 24px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff004c;
+      color: #ffd500;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.1s;
+    }
+
+    body.arona-theme button {
+      background-color: #0056b3;
+      color: #fff;
+    }
+
+    button:hover {
+      transform: scale(1.05); 
+    }
+
+    body.kurumi-theme button:hover {
+      background-color: #ff004c;  
+    }
+
+    body.arona-theme button:hover {
+      background-color: #0056b3;  
+    }
+
+    button:nth-child(1) { grid-column: 1; }  /* "C" */
+    button:nth-child(2) { grid-column: 2; }  /* "/" */
+    button:nth-child(3) { grid-column: 3; }  /* "*" */
+    button:nth-child(4) { grid-column: 4; }  /* "-" */
+    button:nth-child(5) { grid-column: 1; }  /* "7" */
+    button:nth-child(6) { grid-column: 2; }  /* "8" */
+    button:nth-child(7) { grid-column: 3; }  /* "9" */
+    button:nth-child(8) { grid-column: 1; }  /* "4" */
+    button:nth-child(9) { grid-column: 2; }  /* "5" */
+    button:nth-child(10) { grid-column: 3; } /* "6" */
+    button:nth-child(11) { 
+      grid-column: 4;
+      grid-row: span 2;
+      margin-top: -70px; /* Buat geser ke atas atau kebawah ya */
+      height: 130px; /* Ngatur size sesuai kebutuhan */
+    } /* "+" */
+    button:nth-child(12) { grid-column: 1; } /* "1" */
+    button:nth-child(13) { grid-column: 2; } /* "2" */
+    button:nth-child(14) { grid-column: 3; } /* "3" */
+    button:nth-child(15) { grid-column: 2; } /* "0" */
+    button:nth-child(16) {
+      grid-row: span 2;
+      grid-column: 4;
+      margin-top: -70px; /* Buat geser ke atas atau kebawah ya */
+      height: 130px; /* Ngatur size sesuai kebutuhan */
+    }  /* "=" */
+    <style/>
+    
+  </head>
+  <body class="arona-theme">
+    <div class="background-video-container">
+      <video autoplay muted loop id="background-video">
+        <source src="https://cdn.discordapp.com/attachments/1182122295171485769/1323324962219753595/arona.webm?ex=677419e9&is=6772c869&hm=3912d712516ab54cfb2cc8da99035a9b295945ba530495734a73f7661c28af8d&" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    
+    <div class="theme-toggle-container">
+      <div id="theme-toggle" onclick="toggleTheme()"></div>
+    </div>
+
+    <div class="calculator">
+      <input type="text" id="result" disabled />
+      <div class="buttons">
+        <button onclick="clearResult()">C</button>
+        <button onclick="appendToResult('/')">/</button>
+        <button onclick="appendToResult('*')">*</button>
+        <button onclick="appendToResult('-')">-</button>
+        <button onclick="appendToResult('7')">7</button>
+        <button onclick="appendToResult('8')">8</button>
+        <button onclick="appendToResult('9')">9</button>
+        <button onclick="appendToResult('4')">4</button>
+        <button onclick="appendToResult('5')">5</button>
+        <button onclick="appendToResult('6')">6</button>
+        <button onclick="appendToResult('+')">+</button>
+        <button onclick="appendToResult('1')">1</button>
+        <button onclick="appendToResult('2')">2</button>
+        <button onclick="appendToResult('3')">3</button>
+        <button onclick="appendToResult('0')">0</button>
+        <button onclick="calculateResult()">=</button>
+      </div>
+     
+    </div>
+
+    <script>
+        function appendToResult(value) {
+      document.getElementById('result').value += value;
+    }
+
+    function clearResult() {
+      document.getElementById('result').value = '';
+    }
+
+    function calculateResult() {
+      const resultField = document.getElementById('result');
+      const resultValue = resultField.value.trim();
+
+      if (resultValue === '') {
+        resultField.value = 'ERROR ☹';
+        return;
+      }
+
+      try {
+        resultField.value = eval(resultValue);
+      } catch (error) {
+        resultField.value = 'ERROR ☹';
+      }
+    }
+
+
+    function toggleTheme() {
+      const body = document.body;
+      const video = document.getElementById('background-video');
+      const toggleButton = document.getElementById('theme-toggle');
+
+      if (body.classList.contains('kurumi-theme')) {
+        body.classList.remove('kurumi-theme');
+        body.classList.add('arona-theme');
+        video.src = "https://cdn.discordapp.com/attachments/1182122295171485769/1323324962219753595/arona.webm?ex=677419e9&is=6772c869&hm=3912d712516ab54cfb2cc8da99035a9b295945ba530495734a73f7661c28af8d&";
+        toggleButton.style.backgroundImage = "url('https://i.imgur.com/wedWg0h.png')";
+      } else {
+        body.classList.remove('arona-theme');
+        body.classList.add('kurumi-theme');
+        video.src = "https://cdn.discordapp.com/attachments/1182122295171485769/1323327109564731392/kurumi.webm?ex=67741be9&is=6772ca69&hm=ea71d2f3ec9762bdad8a2e8397153923ac64ed412a36142ffb55207bb619b615&";
+        toggleButton.style.backgroundImage = "url('https://i.imgur.com/uAdeaYN.png')";
+      }
+    }
+    </script>
+  </body>
+</html>
